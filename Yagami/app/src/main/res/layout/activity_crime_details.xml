@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CrimeDetailsActivity"
+    android:background="@drawable/lined_paper">
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/relativeLayout">
+
+            <TextView
+                android:id="@+id/head"
+                android:padding="16dp"
+                android:layout_centerHorizontal="true"
+                android:text="Crime details"
+                android:textColor="#000000"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.example.android.yagami.TypeWriter
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/details"
+                android:lineSpacingMultiplier="1.95"
+                android:layout_below="@+id/head"
+                android:layout_marginTop="5dp"
+                android:padding="12dp"
+                android:text="blakajnsjandnnsxaksdb"
+                android:textColor="#000000"
+                android:textSize="18sp"/>
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+</RelativeLayout>

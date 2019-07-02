@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Yagami</string>
+    <string name="menu_title">What would you like to do?</string>
+    <string name="force_button">police forces</string>
+    <string name="crime_button">crimes</string>
+    <string name="fav_button">favorites</string>
+    <string name="year">Year</string>
+    <string name="month">Month</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+</resources>
