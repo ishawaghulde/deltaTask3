@@ -30,13 +30,25 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> items=new ArrayList<>();
     RecyclerViewAdapter recyclerViewAdapter;
     RecyclerView recyclerView;
+    ArrayList<String> filteredList;
 
     private View.OnClickListener onItemClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
             int position = viewHolder.getAdapterPosition();
-            nav(position);
+            int length = filteredList.size();
+            int i = 0;
+            if(length != 0){
+                String clickedItem = filteredList.get(position).toLowerCase();
+                for(String item : items){
+                    if(item.toLowerCase().contains(clickedItem))
+                        nav(i);
+                    i++;
+                }
+            }
+            else
+                nav(position);
         }
     };
 
@@ -98,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void filter(String text) {
-        ArrayList<String> filteredList = new ArrayList<>();
+        filteredList = new ArrayList<>();
         for(String item: items){
             if(item.toLowerCase().contains(text.toLowerCase())){
                 filteredList.add(item);
