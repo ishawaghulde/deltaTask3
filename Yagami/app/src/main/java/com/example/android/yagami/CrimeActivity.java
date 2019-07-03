@@ -9,6 +9,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class CrimeActivity extends AppCompatActivity {
+    public static final String KEY__1 = "KEY1";
+    public static final String KEY__2 = "KEY2";
+    public static final String KEY__3 = "KEY3";
+    public static final String KEY__4 = "KEY4";
     EditText year;
     EditText month;
     EditText latitude;
@@ -43,10 +47,10 @@ public class CrimeActivity extends AppCompatActivity {
                     longitude.setText("");
                     Intent intent = new Intent(CrimeActivity.this, CrimeListActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putString("key1",getYear);
-                    bundle.putString("key2",getMonth);
-                    bundle.putString("key3",getLatitude);
-                    bundle.putString("key4",getLongitude);
+                    bundle.putString(KEY__1,getYear);
+                    bundle.putString(KEY__2,getMonth);
+                    bundle.putString(KEY__3,getLatitude);
+                    bundle.putString(KEY__4,getLongitude);
                     intent.putExtras(bundle);
                     startActivity(intent);
                 }

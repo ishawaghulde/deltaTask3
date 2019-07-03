@@ -19,6 +19,11 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.example.android.yagami.CrimeListActivity.KEY1;
+import static com.example.android.yagami.CrimeListActivity.KEY2;
+import static com.example.android.yagami.CrimeListActivity.KEY3;
+import static com.example.android.yagami.CrimeListActivity.KEY4;
+
 public class CrimeDetailsActivity extends AppCompatActivity {
     private PoliceDetailApi policeApi;
     int pos;
@@ -48,11 +53,11 @@ public class CrimeDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crime_details);
         Bundle bundle = getIntent().getExtras();
-        String str = bundle.getString("key1");
+        String str = bundle.getString(KEY1);
         pos = Integer.parseInt(str);
-        date = bundle.getString("key2");
-        latitude = bundle.getString("key3");
-        longitude = bundle.getString("key4");
+        date = bundle.getString(KEY2);
+        latitude = bundle.getString(KEY3);
+        longitude = bundle.getString(KEY4);
 
         details = findViewById(R.id.details);
         RelativeLayout relativeLayout = findViewById(R.id.relativeLayout);

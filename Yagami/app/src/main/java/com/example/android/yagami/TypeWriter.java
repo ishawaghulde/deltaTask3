@@ -24,7 +24,7 @@ public class TypeWriter extends android.support.v7.widget.AppCompatTextView {
             String str = chars.toString();
             int p = str.indexOf(' ', index) - index;
             int q = str.indexOf('.', index) - index;
-            if(p < 0 && !(q<0)){
+            if(p < 0 && q>0){
                 p = q;
                 setText(chars.subSequence(0, index+=p+1));
             }
@@ -35,6 +35,11 @@ public class TypeWriter extends android.support.v7.widget.AppCompatTextView {
             else if(p>0 && q<0){
                 setText(chars.subSequence(0, index+=p+1));
             }
+            else if(p<0 && q<0 && index<chars.length()){
+                p = chars.length()- index;
+                setText(chars.subSequence(0,index+=p));
+            }
+
 
             if(index <= chars.length()){
                 handler.postDelayed(characterAdder, delay);

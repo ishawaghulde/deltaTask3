@@ -21,7 +21,16 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.example.android.yagami.CrimeActivity.KEY__1;
+import static com.example.android.yagami.CrimeActivity.KEY__2;
+import static com.example.android.yagami.CrimeActivity.KEY__3;
+import static com.example.android.yagami.CrimeActivity.KEY__4;
+
 public class CrimeListActivity extends AppCompatActivity{
+    public static final String KEY1 = "key1";
+    public static final String KEY2 = "key2";
+    public static final String KEY3 = "key3";
+    public static final String KEY4 = "key4";
     ArrayList<String> crimeList = new ArrayList<>();
     TextAdapter textAdapter;
     RecyclerView recyclerView;
@@ -57,10 +66,10 @@ public class CrimeListActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crime_list);
         Bundle bundle = getIntent().getExtras();
-        String year = bundle.getString("key1");
-        String month = bundle.getString("key2");
-        latitude = bundle.getString("key3");
-        longitude = bundle.getString("key4");
+        String year = bundle.getString(KEY__1);
+        String month = bundle.getString(KEY__2);
+        latitude = bundle.getString(KEY__3);
+        longitude = bundle.getString(KEY__4);
 
         date = year + "-" + month;
 
@@ -204,10 +213,10 @@ public class CrimeListActivity extends AppCompatActivity{
         Intent intent = new Intent(CrimeListActivity.this, CrimeDetailsActivity.class);
         Bundle bundle = new Bundle();
         String str = String.valueOf(pos);
-        bundle.putString("key1",str);
-        bundle.putString("key2",date);
-        bundle.putString("key3",latitude);
-        bundle.putString("key4",longitude);
+        bundle.putString(KEY1,str);
+        bundle.putString(KEY2,date);
+        bundle.putString(KEY3,latitude);
+        bundle.putString(KEY4,longitude);
         intent.putExtras(bundle);
         startActivity(intent);
     }
