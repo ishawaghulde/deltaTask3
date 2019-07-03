@@ -1,16 +1,14 @@
 package com.example.android.yagami;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.os.Handler;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
 
 public class TypeWriter extends android.support.v7.widget.AppCompatTextView {
     private CharSequence chars;
     private int index;
-    private long delay = 50;
+    private long delay = 250;
     public TypeWriter(Context context){
         super(context);
     }
@@ -23,10 +21,25 @@ public class TypeWriter extends android.support.v7.widget.AppCompatTextView {
 
         @Override
         public void run() {
-            setText(chars.subSequence(0, index++));
+            String str = chars.toString();
+            int p = str.indexOf(' ', index) - index;
+            int q = str.indexOf('.', index) - index;
+            if(p < 0 && !(q<0)){
+                p = q;
+                setText(chars.subSequence(0, index+=p+1));
+            }
+            else if(p>0 && q>0){
+                p = java.lang.Math.min(p,q);
+                setText(chars.subSequence(0, index+=p+1));
+            }
+            else if(p>0 && q<0){
+                setText(chars.subSequence(0, index+=p+1));
+            }
+
             if(index <= chars.length()){
                 handler.postDelayed(characterAdder, delay);
             }
+
         }
     };
 
@@ -42,7 +55,4 @@ public class TypeWriter extends android.support.v7.widget.AppCompatTextView {
         handler.removeCallbacks(characterAdder);
     }
 
-    public void setCharactrDelay(long m){
-        delay = m;
-    }
 }

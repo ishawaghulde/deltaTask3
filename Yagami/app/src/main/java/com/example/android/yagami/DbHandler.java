@@ -57,8 +57,6 @@ public class DbHandler extends SQLiteOpenHelper{
         cValues.put(KEY_CRIME_ID, crime_id);
         cValues.put(KEY_LOCATION_SUBTYPE, location_subtype);
         cValues.put(KEY_MONTH, month);
-        // Insert the new row, returning the primary key value of the new row
-        long newRowId = db.insert(TABLE_Users,null, cValues);
         db.close();
     }
 
@@ -80,17 +78,18 @@ public class DbHandler extends SQLiteOpenHelper{
             user.put("month",cursor.getString(cursor.getColumnIndex(KEY_MONTH)));
             userList.add(user);
         }
+        cursor.close();
         return  userList;
+
     }
 
     public boolean GetUserByCrimeId(String crimeId){
         SQLiteDatabase db = this.getWritableDatabase();
-        ArrayList<HashMap<String, String>> userList = new ArrayList<>();
-        String query = "SELECT category, location_type, location, context, outcome_status, persistent_id, location_subtype, month FROM "+ TABLE_Users;
         Cursor cursor = db.query(TABLE_Users, new String[]{KEY_CATEGORY, KEY_LOCATION_TYPE, KEY_LOCATION, KEY_CONTEXT, KEY_OUTCOME_STATUS, KEY_PERSISTENT_ID, KEY_LOCATION_SUBTYPE, KEY_MONTH},  KEY_CRIME_ID+ "=?",new String[]{crimeId},null, null, null, null);
         if (cursor.moveToNext()){
             return true;
         }
+        cursor.close();
         return false;
     }
 }

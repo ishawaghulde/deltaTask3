@@ -1,6 +1,5 @@
 package com.example.android.yagami;
 
-import android.location.Location;
 
 public class DetailPost {
     private String category;
@@ -20,8 +19,7 @@ public class DetailPost {
         return "Location Type : " + location_type + "\n";
     }
     public String getLocation(){
-        String strLocation = "Location : " + "\n\t\t" + "Latitude : " + location.getLatitude() + "\n\t\t" + "Street : " + location.getStreet() + "\n\t\t" + "Longitude : " + location.getLongitude() + "\n";
-        return strLocation;
+        return "Location : " + "\n\t\t" + "Latitude : " + location.getLatitude() + "\n\t\t" + "Street : " + location.getStreet() + "\n\t\t" + "Longitude : " + location.getLongitude() + "\n";
     }
 
     public String getContext(){
@@ -57,7 +55,7 @@ public class DetailPost {
         return "Month : " + month + "\n";
     }
 
-    public static class Location {
+    private static class Location {
         private String latitude;
         private String longitude;
         private Street street;
@@ -73,7 +71,7 @@ public class DetailPost {
         }
     }
 
-    public static class Street {
+    private static class Street {
         private int id;
         private String name;
 
@@ -87,7 +85,7 @@ public class DetailPost {
         }
     }
 
-    public static class OutcomeStatus{
+    private static class OutcomeStatus{
         private String category;
         private String date;
 

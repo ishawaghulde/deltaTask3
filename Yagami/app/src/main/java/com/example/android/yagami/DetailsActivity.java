@@ -1,16 +1,13 @@
 package com.example.android.yagami;
 
-import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
+import static com.example.android.yagami.MainActivity.KEY_1;
+import static com.example.android.yagami.MainActivity.KEY_2;
 
 public class DetailsActivity extends AppCompatActivity {
     TypeWriter textView;
@@ -24,12 +21,12 @@ public class DetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
         Bundle bundle = getIntent().getExtras();
-        String str = bundle.getString("key1");
+        String str = bundle.getString(KEY_1);
         final int pos = Integer.parseInt(str);
-        String place = bundle.getString("key2");
-        textView = (TypeWriter) findViewById(R.id.textView);
-        head = (TextView) findViewById(R.id.head);
-        relLayout = (RelativeLayout) findViewById(R.id.relLayout);
+        String place = bundle.getString(KEY_2);
+        textView = findViewById(R.id.textView);
+        head = findViewById(R.id.head);
+        relLayout = findViewById(R.id.relLayout);
         textView.setText("");
         head.setText(place);
         relLayout.setOnClickListener(new View.OnClickListener() {
@@ -237,7 +234,6 @@ public class DetailsActivity extends AppCompatActivity {
             textView.setText("");
             textView.setChars();
             textView.setText(info);
-            click = false;
         }
     }
 }

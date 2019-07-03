@@ -1,9 +1,5 @@
 package com.example.android.yagami;
 
-import android.app.SearchManager;
-import android.content.Context;
-import java.util.*;
-import java.util.List;
 import java.util.ArrayList;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -13,24 +9,17 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
-import android.widget.SearchView;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
     ArrayList<String> items=new ArrayList<>();
     RecyclerViewAdapter recyclerViewAdapter;
     RecyclerView recyclerView;
-    ArrayList<String> filteredList;
+    ArrayList<String> filteredList = new ArrayList<>();
+    boolean search = false;
+    public static final String KEY_1 = "key_1";
+    public static final String KEY_2 = "key_2";
 
     private View.OnClickListener onItemClickListener = new View.OnClickListener() {
         @Override
@@ -56,8 +45,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        EditText editText = (EditText) findViewById(R.id.edittext);
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        EditText editText = findViewById(R.id.edittext);
+        recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewAdapter = new RecyclerViewAdapter();
         recyclerView.setAdapter(recyclerViewAdapter);
@@ -75,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
+                search = true;
                 filter(s.toString());
             }
 
@@ -171,8 +161,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, DetailsActivity.class);
         Bundle bundle = new Bundle();
         String str = String.valueOf(pos);
-        bundle.putString("key1",str);
-        bundle.putString("key2",place);
+        bundle.putString(KEY_1,str);
+        bundle.putString(KEY_2,place);
         intent.putExtras(bundle);
         startActivity(intent);
     }

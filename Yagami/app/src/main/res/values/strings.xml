@@ -8,4 +8,10 @@
     <string name="month">Month</string>
     <string name="latitude">Latitude</string>
     <string name="longitude">Longitude</string>
+    <string name="year_hint">yyyy</string>
+    <string name="month_hint">mm</string>
+    <string name="lat_hint">52.629729</string>
+    <string name="long_hint">-1.131592</string>
+    <string name="crime_details">Crime Details</string>
+    <string name="desc">Description</string>
 </resources>

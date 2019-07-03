@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter  {
-    private List<String> items = new ArrayList<String>();
+    private List<String> items = new ArrayList<>();
 
 
     private static View.OnClickListener onItemClickListener;
@@ -34,7 +34,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter  {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof TextViewHolder)
             ((TextViewHolder) holder).bind(items.get(position));
     }
 
@@ -49,12 +48,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter  {
     }
 
 
-    static class TextViewHolder extends RecyclerView.ViewHolder {
+    private static class TextViewHolder extends RecyclerView.ViewHolder {
         private TextView textView;
 
 
 
-        public TextViewHolder(@NonNull View itemView) {
+        private TextViewHolder(@NonNull View itemView) {
             super(itemView);
 
             textView = itemView.findViewById(R.id.desc);
@@ -62,7 +61,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter  {
             itemView.setOnClickListener(onItemClickListener);
         }
 
-        public void bind(String text) {
+        private void bind(String text) {
             textView.setText(text);
         }
     }

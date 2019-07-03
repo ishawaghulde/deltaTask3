@@ -1,28 +1,16 @@
 package com.example.android.yagami;
 
-import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class TextAdapter extends RecyclerView.Adapter {
-    private List<String> items = new ArrayList<String>();
+    private List<String> items = new ArrayList<>();
 
 
     private static View.OnClickListener onItemClickListener;
@@ -67,12 +55,12 @@ public class TextAdapter extends RecyclerView.Adapter {
         notifyItemInserted(deletedItemPos);
     }
 
-    static class TextViewHolder extends RecyclerView.ViewHolder {
+    private static class TextViewHolder extends RecyclerView.ViewHolder {
         private TextView textView;
 
 
 
-        public TextViewHolder(@NonNull View itemView) {
+        private TextViewHolder(@NonNull View itemView) {
             super(itemView);
 
             textView = itemView.findViewById(R.id.description);
@@ -80,7 +68,7 @@ public class TextAdapter extends RecyclerView.Adapter {
             itemView.setOnClickListener(onItemClickListener);
         }
 
-        public void bind(String text) {
+        private void bind(String text) {
             textView.setText(text);
         }
     }

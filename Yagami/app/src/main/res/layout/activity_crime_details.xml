@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CrimeDetailsActivity"
+    android:fillViewport="true"
     android:background="@drawable/lined_paper">
-
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -21,7 +16,7 @@
                 android:id="@+id/head"
                 android:padding="16dp"
                 android:layout_centerHorizontal="true"
-                android:text="Crime details"
+                android:text="@string/crime_details"
                 android:textColor="#000000"
                 android:textSize="24sp"
                 android:textStyle="bold"
@@ -36,12 +31,9 @@
                 android:layout_below="@+id/head"
                 android:layout_marginTop="5dp"
                 android:padding="12dp"
-                android:text="blakajnsjandnnsxaksdb"
+                android:text=""
                 android:textColor="#000000"
                 android:textSize="18sp"/>
         </RelativeLayout>
 
-
-    </ScrollView>
-
-</RelativeLayout>
+</ScrollView>

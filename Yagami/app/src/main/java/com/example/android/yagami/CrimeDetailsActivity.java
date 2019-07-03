@@ -1,17 +1,14 @@
 package com.example.android.yagami;
 
-import android.app.Activity;
-import android.graphics.Typeface;
+
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +26,6 @@ public class CrimeDetailsActivity extends AppCompatActivity {
     private boolean exists;
     private boolean click = false;
     private  Menu optionsMenu;
-    private RelativeLayout relativeLayout;
 
     String date;
     String latitude;
@@ -58,8 +54,8 @@ public class CrimeDetailsActivity extends AppCompatActivity {
         latitude = bundle.getString("key3");
         longitude = bundle.getString("key4");
 
-        details = (TypeWriter) findViewById(R.id.details);
-        relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
+        details = findViewById(R.id.details);
+        RelativeLayout relativeLayout = findViewById(R.id.relativeLayout);
         details.setText("");
         relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,7 +86,7 @@ public class CrimeDetailsActivity extends AppCompatActivity {
 
         call.enqueue(new Callback<List<DetailPost>>() {
             @Override
-            public void onResponse(Call<List<DetailPost>> call, Response<List<DetailPost>> response) {
+            public void onResponse(@NonNull Call<List<DetailPost>> call,@NonNull Response<List<DetailPost>> response) {
 
                 if (!response.isSuccessful()) {
                     Toast.makeText(CrimeDetailsActivity.this, "Data Not Found!", Toast.LENGTH_LONG).show();
@@ -127,7 +123,7 @@ public class CrimeDetailsActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<DetailPost>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<DetailPost>> call,@NonNull Throwable t) {
                 Toast.makeText(CrimeDetailsActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -141,7 +137,6 @@ public class CrimeDetailsActivity extends AppCompatActivity {
             details.setText("");
             details.setChars();
             details.setText(content);
-            click = false;
         }
     }
 
@@ -156,8 +151,6 @@ public class CrimeDetailsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id==R.id.addfav){
-//            dbHandler = new DbHandler(CrimeDetailsActivity.this);
-//            boolean exists = dbHandler.GetUserByCrimeId(colCrime_id);
             if(!exists){
                 dbHandler.insertUserDetails(colCategory, colLocation_type, colLocation, colContext, colOutcome_status, colPersistent_id, colCrime_id, colLocation_subtype, colMonth);
                 Toast.makeText(this, "Added to favorites", Toast.LENGTH_SHORT).show();

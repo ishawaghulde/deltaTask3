@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -26,7 +25,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/yearText"
-            android:hint="yyyy"
+            android:hint="@string/year_hint"
+            android:inputType="number"
             android:layout_marginLeft="48dp"
             android:layout_marginStart="48dp"/>
 
@@ -50,7 +50,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/monthText"
-            android:hint="mm"
+            android:inputType="number"
+            android:hint="@string/month_hint"
             android:layout_marginTop="48dp"
             android:layout_marginLeft="48dp"
             android:layout_marginStart="48dp"/>
@@ -75,7 +76,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/latitudeText"
-            android:hint="52.629729"
+            android:inputType="numberDecimal"
+            android:hint="@string/lat_hint"
             android:layout_marginTop="48dp"
             android:layout_marginLeft="24dp"
             android:layout_marginStart="24dp"/>
@@ -100,7 +102,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/longitudeText"
-            android:hint="-1.131592"
+            android:hint="@string/long_hint"
             android:layout_marginTop="48dp"
             android:layout_marginLeft="24dp"
             android:layout_marginStart="24dp"/>

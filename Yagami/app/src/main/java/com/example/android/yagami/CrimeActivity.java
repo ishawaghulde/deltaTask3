@@ -1,6 +1,5 @@
 package com.example.android.yagami;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,11 +19,11 @@ public class CrimeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crime);
-        year = (EditText) findViewById(R.id.yearText);
-        month = (EditText) findViewById(R.id.monthText);
-        latitude = (EditText) findViewById(R.id.latitudeText);
-        longitude = (EditText) findViewById(R.id.longitudeText);
-        crime_button = (Button) findViewById(R.id.crime_button);
+        year = findViewById(R.id.yearText);
+        month = findViewById(R.id.monthText);
+        latitude = findViewById(R.id.latitudeText);
+        longitude = findViewById(R.id.longitudeText);
+        crime_button = findViewById(R.id.crime_button);
 
         crime_button.setOnClickListener(new View.OnClickListener() {
             @Override
