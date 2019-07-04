@@ -1,7 +1,9 @@
 package com.example.android.yagami;
 
 import java.util.ArrayList;
+import java.util.List;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,16 +12,23 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 import android.view.View;
+import android.widget.Toast;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
     ArrayList<String> items=new ArrayList<>();
+    ArrayList<String> idList=new ArrayList<>();
     RecyclerViewAdapter recyclerViewAdapter;
     RecyclerView recyclerView;
     ArrayList<String> filteredList = new ArrayList<>();
     boolean search = false;
     public static final String KEY_1 = "key_1";
-    public static final String KEY_2 = "key_2";
 
     private View.OnClickListener onItemClickListener = new View.OnClickListener() {
         @Override
@@ -51,8 +60,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewAdapter = new RecyclerViewAdapter();
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerViewAdapter.setItemClickListener(onItemClickListener);
-        makeList();
-        recyclerViewAdapter.setItems(items);
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -70,33 +77,43 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-//        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
-//        listView.setAdapter(adapter);
-//
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Toast.makeText(MainActivity.this, items[position], Toast.LENGTH_SHORT).show();
-//                navigate(position, items[position]);
-//            }
-//        });
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://data.police.uk/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
-//        searchView.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                (MainActivity.this).recyclerViewAdapter.getFilter().filter(s);
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//
-//            }
-//        });
+        ForcesAPI forcesAPI = retrofit.create(ForcesAPI.class);
+
+        Call<List<Force>> call = forcesAPI.getForces();
+        call.enqueue(new Callback<List<Force>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<Force>> call,@NonNull Response<List<Force>> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(MainActivity.this, "Data Not Found!", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                List<Force> forces = response.body();
+
+                for (Force force : forces) {
+                    String content = force.getName();
+                    items.add(content);
+                    String id = force.getForceId();
+                    idList.add(id);
+                }
+                makeList();
+            }
+
+
+            @Override
+            public void onFailure(@NonNull Call<List<Force>> call,@NonNull Throwable t) {
+                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void makeList(){
+        recyclerViewAdapter.setItems(items);
     }
 
     private void filter(String text) {
@@ -109,60 +126,12 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewAdapter.filterList(filteredList);
     }
 
-    private void makeList(){
-
-        items.add("Avon and Somerset Constabulary");
-        items.add("Bedfordshire Police");
-        items.add("Cambridgeshire Constabulary");
-        items.add("Cheshire Constabulary");
-        items.add("City of London Police");
-        items.add("Cleveland Police");
-        items.add("Cumbria Constabulary");
-        items.add("Derbyshire Constabulary");
-        items.add("Devon and Cornwall Police");
-        items.add("Dorset Police");
-        items.add("Durham Constabulary");
-        items.add("Essex Police");
-        items.add("Gloucestershire Constabulary");
-        items.add("Greater Manchester Police");
-        items.add("Hampshire Constabulary");
-        items.add("Hertfordshire Constabulary");
-        items.add("Humberside Police");
-        items.add("Kent Police");
-        items.add("Lancashire Constabulary");
-        items.add("Leicestershire Police");
-        items.add("Lincolnshire Police");
-        items.add("Merseyside Police");
-        items.add("Metropolitan Police Service");
-        items.add("Norfolk Constabulary");
-        items.add("Northamptonshire Police");
-        items.add("Northumbria Police");
-        items.add("North Yorkshire Police");
-        items.add("Nottinghamshire Police");
-        items.add("South Yorkshire Police");
-        items.add("Staffordshire Police");
-        items.add("Suffolk Constabulary");
-        items.add("Surrey Police");
-        items.add("Sussex Police");
-        items.add("Thames Valley Police");
-        items.add("Warwickshire Police");
-        items.add("West Mercia Police");
-        items.add("West Midlands Police");
-        items.add("West Yorkshire Police");
-        items.add("Wiltshire Policee");
-        items.add("Dyfed-Powys Police");
-        items.add("Gwent Police");
-        items.add("North Wales Police");
-        items.add("South Wales Police");
-    }
 
     protected void nav(int pos){
-        String place = items.get(pos);
+        String place = idList.get(pos);
         Intent intent = new Intent(this, DetailsActivity.class);
         Bundle bundle = new Bundle();
-        String str = String.valueOf(pos);
-        bundle.putString(KEY_1,str);
-        bundle.putString(KEY_2,place);
+        bundle.putString(KEY_1,place);
         intent.putExtras(bundle);
         startActivity(intent);
     }
